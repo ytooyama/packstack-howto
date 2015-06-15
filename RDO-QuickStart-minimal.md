@@ -46,17 +46,17 @@ DEVICE="eth1" #追加
 ````
 
 - リポジトリーパッケージのインストール
-
-  - Juno をインストールする場合の参照リポジトリー
+ 
+A. Juno をインストールする場合の参照リポジトリー
 
 ````
 # yum install -y http://rdo.fedorapeople.org/openstack-juno/rdo-release-juno.rpm
 ````
 
-  - Kilo をインストールする場合の参照リポジトリー
+B. Kilo をインストールする場合の参照リポジトリー
 
 ````
-# yum install -y http://rdo.fedorapeople.org/openstack-juno/rdo-release-kilo.rpm
+# yum install -y http://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm
 ````
 
 - システムアップデートとパッケージのインストール
