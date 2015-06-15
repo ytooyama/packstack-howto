@@ -181,7 +181,7 @@ nova-cert        node1     internal         enabled    :-)   2015-04-28 02:22:19
 +--------------------+---------+-------+
 ````
 
-KiloでUnable to establish connection to http://xxx.xxx.xxx.xxx:5000/v2.0/tokensといったエラーが出た場合はKeystoneが正常に動いていないので、httpdを再起動してみてください。その後、keystone token-getなどのコマンドで応答が返ってくれば問題ないです。
+KiloでUnable to establish connection to http://xxx.xxx.xxx.xxx:5000/v2.0/tokens といったエラーが出た場合はKeystoneが正常に動いていないので、httpdを再起動してみてください。その後、keystone token-getなどのコマンドで応答が返ってくれば問題ないです。
 
 
 ##この後の設定について
