@@ -1,6 +1,6 @@
 #Packstack Howto
 
-最終更新日: 2015/10/26
+最終更新日: 2015/10/28
 
 ##この文書について
 この文書はとりあえず1台に全部入りのOpenStack環境をさくっと構築する場合の手順です。細かいことは省いてしまったので、もう少し細かい手順については次のページの情報などを参考にしてください。
@@ -143,6 +143,17 @@ DNS1=8.8.8.8           # nameserver
 DNS2=8.8.4.4
 ````
 
+###◆SELinuxの設定
+SELinuxが有効の状態でも動作するように調整します。All-in-Oneでインストールしたので、次の設定を追加します。
+
+````
+# setsebool -P httpd_use_openstack on
+# setsebool -P neutron_can_network on
+# setsebool -P glance_api_can_network on
+# setsebool -P swift_can_network on
+````
+
+###◆再起動
 ここまでできたらいったんホストを再起動します。
 
 ````
