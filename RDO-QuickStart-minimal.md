@@ -1,35 +1,31 @@
-#RDO Packstack Howto
+#Packstack Howto
 
-最終更新日: 2015/06/15
+最終更新日: 2015/10/26
 
 ##この文書について
 この文書はとりあえず1台に全部入りのOpenStack環境をさくっと構築する場合の手順です。細かいことは省いてしまったので、もう少し細かい手順については次のページの情報などを参考にしてください。
 
 - [Juno](https://github.com/ytooyama/rdo-juno)
 - [Kilo](https://github.com/ytooyama/rdo-kilo)
+- Liberty
 - [その他](https://github.com/ytooyama?tab=repositories)
 
 
-##Step 0: 前提
+##前提
 
-- NIC eth1がインターネットゲートウェイと接続されているNICであると想定します（違う場合は読み替えてください）。
-
+- 2Core,4GBメモリー,30GBディスク以上の環境を用意します。
+- CentOS 7 64bit版をインストールし`yum update`して最新の状態にします。
+- 固定IPアドレスを設定しておきます。
+- 本例はNIC eth1がインターネットゲートウェイと接続されているNICであると想定します（違う場合は読み替えてください）。
 
 ##Step 1: インストールまでの流れ
 
-- OSのインストールとアップデート
-  - CentOS 7.xを最小インストールして、アップデートを行っておきます。
+###OSのインストールとアップデート
+- CentOS 7.xを最小インストールして、アップデートを行っておきます。
 
-
-- NetworkManagerからnetworkサービスへの切り替え
-
-```` 
-# systemctl stop NetworkManager
-# systemctl disable NetworkManager
-# systemctl enable network
-````
-
-- ifcfg-"NIC"にDEVICEパラメーターの追記
+###ネットワーク設定の変更
+- 固定IPアドレスを設定します。
+- ifcfg-"NIC"にDEVICEパラメーターを追記します。
 
 (例)
 
@@ -39,24 +35,34 @@ NAME="eth1"
 DEVICE="eth1" #追加
 ````
 
-- 一旦再起動
+- IPアドレスの設定を適用します。うまく反映されない場合は再起動してください。
 
 ````
-# reboot
+# ifdown eth1;ifup eth1
 ````
 
-- リポジトリーパッケージのインストール
+###リポジトリーパッケージのインストール
  
-A. Juno をインストールする場合の参照リポジトリー
+- Juno をインストールする場合の参照リポジトリー
 
 ````
 # yum install -y http://rdo.fedorapeople.org/openstack-juno/rdo-release-juno.rpm
 ````
 
-B. Kilo をインストールする場合の参照リポジトリー
+- Kilo をインストールする場合
+
+CentOS Cloud SIGで用意しているパッケージを使うか、RDOのリポジトリーのパッケージを使うかの2つの方法があります。
 
 ````
+# yum install -y centos-release-openstack-kilo
+or
 # yum install -y http://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm
+````
+
+- Liberty をインストールする場合
+
+````
+# yum install -y centos-release-openstack-liberty
 ````
 
 - システムアップデートとパッケージのインストール
@@ -65,10 +71,12 @@ B. Kilo をインストールする場合の参照リポジトリー
 # yum update -y && yum install -y openstack-packstack
 ````
 
-- PackstackによるOpenStackのデプロイ
+###PackstackによるOpenStackのデプロイ
 
 ````
-# packstack --allinone --default-password=password --provision-demo=n --novanetwork-pubif=eth1 --use-epel=y
+# setenforce 0
+# packstack --allinone --default-password=password \
+ --provision-demo=n --use-epel=y
 ...
  **** Installation completed successfully ******
 ````
@@ -76,6 +84,16 @@ B. Kilo をインストールする場合の参照リポジトリー
 --provision-demo=yとすると、デモ用のネットワークやユーザーなどが作られ、OpenStackの一通りの操作をすぐ実行できます。ただしデモ用のネットワークはクローズドなので、外部からアクセス不可（後でそれを可能にするには、Neutronネットワークの作り直しが必要）なので注意。
 
 エラーが出ず、インストールが正常に完了すれば「Installation completed successfully」と表示されます。
+
+- NetworkManagerからnetworkサービスへの切り替え
+
+Packstackの構築完了後に切り替えを行います。
+
+```` 
+# systemctl disable NetworkManager
+# systemctl enable network
+````
+
 
 ##Step 2: ブラウザーでアクセス
 
@@ -90,14 +108,7 @@ B. Kilo をインストールする場合の参照リポジトリー
 
 次に外部と通信できるようにするための設定を行います。外部ネットワークとの接続を提供するノード(ネットワークノード、1台構成時はそのマシン)に仮想ネットワークブリッジインターフェイスであるbr-exを設定します。
 
-###◆public用として使うNICの設定を確認
-コマンドを実行して、アンサーファイルに設定したPublic用NIC(ゲートウェイとつながっている方)を確認します。
-以降の手順ではeth1であることを前提として解説します。
-
-````
-# less packstack-answers-*|grep CONFIG_NOVA_NETWORK_PUBIF
-CONFIG_NOVA_NETWORK_PUBIF=eth1
-````
+本例ではホストに二つのNICがあり、eth1がインターネット側につながっている場合を例とします。eth1にゲートウェイが設定されていることを確認します。
 
 ###◆public用として使うNICの設定ファイルを修正
 Packstackコマンド実行後、eth1をbr-exにつなぐように設定をします(※BOOTPROTOは設定しない)
@@ -124,7 +135,7 @@ ONBOOT=yes
 DEVICETYPE=ovs
 TYPE=OVSBridge
 OVSBOOTPROTO=none
-OVSDHCPINTERFACES=eth1
+OVSDHCPINTERFACES=eth1 #インターネットに接続されている方のデバイス
 IPADDR=192.168.1.10
 NETMASK=255.255.255.0  # netmask
 GATEWAY=192.168.1.1    # gateway
@@ -147,7 +158,7 @@ Packstackインストーラーによるインストール時にエラー出力�
 # ip a s br-ex | grep inet
     inet 192.168.1.10/24 brd 192.168.1.255 scope global br-ex
     inet6 fe80::54d3:7dff:fee0:a046/64 scope link
-# ping enterprisecloud.jp -c 3 -I br-ex | grep "packet loss"
+# ping 8.8.8.8 -c 3 -I br-ex | grep "packet loss"
 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
 ````
 
@@ -160,11 +171,11 @@ Packstackインストーラーによるインストール時にエラー出力�
 (adminユーザー認証情報を読み込む)
 # nova-manage service list
 Binary           Host      Zone             Status     State Updated_At
-nova-consoleauth node1     internal         enabled    :-)   2015-04-28 02:22:19
-nova-scheduler   node1     internal         enabled    :-)   2015-04-28 02:22:19
-nova-conductor   node1     internal         enabled    :-)   2015-04-28 02:22:19
-nova-compute     node1     nova             enabled    :-)   2015-04-28 02:22:19
-nova-cert        node1     internal         enabled    :-)   2015-04-28 02:22:19
+nova-consoleauth node1     internal         enabled    :-)   2015-10-26 04:30:59
+nova-scheduler   node1     internal         enabled    :-)   2015-10-26 04:30:57
+nova-conductor   node1     internal         enabled    :-)   2015-10-26 04:30:59
+nova-compute     node1     nova             enabled    :-)   2015-10-26 04:31:01
+nova-cert        node1     internal         enabled    :-)   2015-10-26 04:30:59
 ````
 
 最後に、NeutronのエージェントがOKであることを確認します。
@@ -189,4 +200,4 @@ KiloでUnable to establish connection to http://xxx.xxx.xxx.xxx:5000/v2.0/tokens
 次にNeutron Networkを作成します。「Neutron ネットワークの設定」の手順に従って、Neutronネットワークを作成してください。
 
 - [Junoの場合](https://github.com/ytooyama/rdo-icehouse/blob/master/2-RDO-QuickStart-Networking.md)
-- [Kiloの場合](https://github.com/ytooyama/rdo-kilo/blob/master/2-RDO-QuickStart-Networking.md)
+- [Kilo以降の場合](https://github.com/ytooyama/rdo-kilo/blob/master/2-RDO-QuickStart-Networking.md)
