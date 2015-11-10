@@ -1,6 +1,7 @@
 #Packstack Howto
 
-最終更新日: 2015/10/28
+最終更新日: 2015/11/10
+
 
 ##この文書について
 この文書はとりあえず1台に全部入りのOpenStack環境をさくっと構築する場合の手順です。細かいことは省いてしまったので、もう少し細かい手順については次のページの情報などを参考にしてください。
@@ -51,18 +52,32 @@ DEVICE="eth1" #追加
 
 - Kilo をインストールする場合
 
-CentOS Cloud SIGで用意しているパッケージを使うか、RDOのリポジトリーのパッケージを使うかの2つの方法があります。
+CentOS 7ではCentOS Cloud SIGで用意しているパッケージを利用できます。
 
 ````
 # yum install -y centos-release-openstack-kilo
-or
+````
+
+RHEL7,Scientific Linux7,Fedora 21及び22ではRDOリポジトリーパッケージを利用できます。
+
+````
 # yum install -y http://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm
 ````
 
+Fedora 23では標準リポジトリーパッケージでKiloを構築できます。
+
 - Liberty をインストールする場合
+
+CentOS 7ではCentOS Cloud SIGで用意しているパッケージを利用できます。
 
 ````
 # yum install -y centos-release-openstack-liberty
+````
+
+RHEL7,Scientific Linux7ではRDOリポジトリーパッケージを利用できます(Fedoraはサポートされません)。
+
+````
+# yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-liberty/rdo-release-liberty-2.noarch.rpm
 ````
 
 - システムアップデートとパッケージのインストール
