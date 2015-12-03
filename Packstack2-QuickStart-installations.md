@@ -1,6 +1,6 @@
-#Packstack Howto
+#Packstack Howto インストールガイド
 
-最終更新日: 2015/11/10
+最終更新日: 2015/12/03
 
 
 ##この文書について
@@ -15,83 +15,27 @@
 ##前提
 
 - 2Core,4GBメモリー,30GBディスク以上の環境を用意します。
-- CentOS 7 64bit版をインストールし`yum update`して最新の状態にします。
+- OSをインストールし`yum update`して最新の状態にします。
 - 固定IPアドレスを設定しておきます。
 - 本例はNIC eth1がインターネットゲートウェイと接続されているNICであると想定します（違う場合は読み替えてください）。
 
 ##Step 1: インストールまでの流れ
 
-###OSのインストールとアップデート
-- CentOS 7.xを最小インストールして、アップデートを行っておきます。
+###前準備
 
-###ネットワーク設定の変更
-- 固定IPアドレスを設定します。
-- ifcfg-"NIC"にDEVICEパラメーターを追記します。
+PackstackによるOpenStackのデプロイを行う前に、下記を参考に準備しておいてください。
 
-(例)
-
-````
-....
-NAME="eth1"
-DEVICE="eth1" #追加
-````
-
-- IPアドレスの設定を適用します。うまく反映されない場合は再起動してください。
-
-````
-# ifdown eth1;ifup eth1
-````
-
-###リポジトリーパッケージのインストール
- 
-- Juno をインストールする場合の参照リポジトリー
-
-````
-# yum install -y http://rdo.fedorapeople.org/openstack-juno/rdo-release-juno.rpm
-````
-
-- Kilo をインストールする場合
-
-CentOS 7ではCentOS Cloud SIGで用意しているパッケージを利用できます。
-
-````
-# yum install -y centos-release-openstack-kilo
-````
-
-RHEL7,Scientific Linux7,Fedora 21及び22ではRDOリポジトリーパッケージを利用できます。
-
-````
-# yum install -y http://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm
-````
-
-Fedora 23では標準リポジトリーパッケージでKiloを構築できます。
-
-- Liberty をインストールする場合
-
-CentOS 7ではCentOS Cloud SIGで用意しているパッケージを利用できます。
-
-````
-# yum install -y centos-release-openstack-liberty
-````
-
-RHEL7,Scientific Linux7ではRDOリポジトリーパッケージを利用できます(Fedoraはサポートされません)。
-
-````
-# yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-liberty/rdo-release-liberty-2.noarch.rpm
-````
-
-- システムアップデートとパッケージのインストール
-
-````
-# yum update -y && yum install -y openstack-packstack
-````
+- [CentOS 7の場合](RDO-QuickStart-arrangements-centos7.md)
+- [Scientific Linux 7/Fedoraの場合](RDO-QuickStart-arrangements-others.md)
 
 ###PackstackによるOpenStackのデプロイ
+
+下記を実行することで1台のマシンにOpenStackコンポーネントをインストールできます。
 
 ````
 # setenforce 0
 # packstack --allinone --default-password=password \
- --provision-demo=n --use-epel=y
+ --provision-demo=n --use-epel=n
 ...
  **** Installation completed successfully ******
 ````
