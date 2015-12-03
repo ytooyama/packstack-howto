@@ -90,4 +90,4 @@ CentOS 7ではCentOS Cloud SIGで用意しているパッケージを利用で�
 
 ###PackstackによるOpenStackのデプロイ
 
-リポジトリーパッケージのインストール終わったら、[インストールガイド](RDO-QuickStart-installations.md)に進みます。
+リポジトリーパッケージのインストール終わったら、[インストールガイド](Packstack2-QuickStart-installations.md)に進みます。

@@ -88,4 +88,4 @@ RHEL7,Scientific Linux7ではRDOリポジトリーパッケージを利用でき
 
 ###PackstackによるOpenStackのデプロイ
 
-リポジトリーパッケージのインストール終わったら、[インストールガイド](RDO-QuickStart-installations.md)に進みます。
+リポジトリーパッケージのインストール終わったら、[インストールガイド](Packstack2-QuickStart-installations.md)に進みます。

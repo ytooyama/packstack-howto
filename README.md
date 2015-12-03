@@ -26,4 +26,3 @@ Liberty版はまだ作っていませんが、[Kilo](https://github.com/ytooyama
 
 ##Packstackを使わないでインストールしたい
 [OpenStack公式マニュアル](http://docs.openstack.org)をご覧ください。
-
