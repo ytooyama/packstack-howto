@@ -46,15 +46,17 @@ DEVICE="eth1" #追加
 Kilo以降、CentOS 7ではCloudSIGプロジェクトがCentOSユーザー向けにパッケージを用意しています。RDOプロジェクトが用意するパッケージも利用できます。
 RHEL7およびCentOS 7以外のRHEL7クローンでは、RDOプロジェクトが用意するリポジトリーパッケージをインストールすることでOpenStackのインストールが可能になります。
 
-- [CentOS 7を使う場合](Packstack1a-QuickStart-arrangements-centos7.md)
-- [RHEL7/Scientific Linux 7を使う場合](Packstack1b-QuickStart-arrangements-others.md)
-- [Fedora 21,22,23を使う場合](Packstack1b-QuickStart-arrangements-others.md)
+Kilo以降では[CentOS 7を使う場合はこちらの方法](Packstack1a-QuickStart-arrangements-centos7.md)でも構築可能です。ちなみにRDO版のパッケージの方が少々新しいです。
+
+---
  
 - Juno をインストールする場合の参照リポジトリー
 
 ````
 # yum install -y http://rdo.fedorapeople.org/openstack-juno/rdo-release-juno.rpm
 ````
+
+---
 
 - Kilo をインストールする場合
 
@@ -64,7 +66,9 @@ RHEL7,Scientific Linux7,Fedora 21及び22ではRDOリポジトリーパッケー
 # yum install -y http://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm
 ````
 
-Fedora 23では標準リポジトリーパッケージでKiloを構築できます。
+Fedora 23では標準リポジトリーパッケージでKiloを構築できるので、上記リポジトリー追加は必要ありません。
+
+---
 
 - Liberty をインストールする場合
 
@@ -74,7 +78,9 @@ RHEL7,Scientific Linux7ではRDOリポジトリーパッケージを利用でき
 # yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-liberty/rdo-release-liberty-2.noarch.rpm
 ````
 
-- システムアップデートとパッケージのインストール
+---
+
+###システムアップデートとパッケージのインストール
 
 ````
 # yum update -y && yum install -y openstack-packstack
