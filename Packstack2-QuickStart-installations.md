@@ -26,7 +26,7 @@
 PackstackによるOpenStackのデプロイを行う前に、下記を参考に準備しておいてください。
 
 - [CentOS 7の場合](RDO-QuickStart-arrangements-centos7.md)
-- [Scientific Linux 7/Fedoraの場合](RDO-QuickStart-arrangements-others.md)
+- [RHEL7/Scientific Linux 7/Fedoraの場合](RDO-QuickStart-arrangements-others.md)
 
 ###PackstackによるOpenStackのデプロイ
 
