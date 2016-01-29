@@ -1,6 +1,6 @@
 #Packstack Howto インストールガイド
 
-最終更新日: 2015/12/03
+最終更新日: 2016/01/20
 
 
 ##この文書について
@@ -8,7 +8,6 @@
 
 - [Juno](https://github.com/ytooyama/rdo-juno)
 - [Kilo](https://github.com/ytooyama/rdo-kilo)
-- Liberty
 - [その他](https://github.com/ytooyama?tab=repositories)
 
 
@@ -26,16 +25,31 @@
 PackstackによるOpenStackのデプロイを行う前に、下記を参考に準備しておいてください。
 
 - [CentOS 7の場合](Packstack1a-QuickStart-arrangements-centos7.md)
-- [RHEL7/Scientific Linux 7/Fedoraの場合](Packstack1b-QuickStart-arrangements-others.md)
+- [Scientific Linux 7/Fedoraの場合](Packstack1b-QuickStart-arrangements-others.md)
+
 
 ###PackstackによるOpenStackのデプロイ
 
 下記を実行することで1台のマシンにOpenStackコンポーネントをインストールできます。
 
+CentOS 7/Fedora(注1)の場合
+
 ````
 # setenforce 0
 # packstack --allinone --default-password=password \
  --provision-demo=n --use-epel=n
+...
+ **** Installation completed successfully ******
+````
+
+注1...RDOコミュニティによるFedoraのサポートはkiloバージョンまでです。
+
+その他のEL7の場合
+
+````
+# yum install epel-release && setenforce 0
+# packstack --allinone --default-password=password \
+ --provision-demo=n --use-epel=y
 ...
  **** Installation completed successfully ******
 ````
