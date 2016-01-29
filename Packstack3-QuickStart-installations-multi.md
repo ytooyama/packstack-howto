@@ -49,6 +49,17 @@ Additional information:
 CONFIG_CONTROLLER_HOST=192.168.1.10
 CONFIG_COMPUTE_HOSTS=192.168.1.11
 CONFIG_NETWORK_HOSTS=192.168.1.11
+...
+CONFIG_GLANCE_INSTALL=y    #コンポーネントインストールの可否を設定します
+CONFIG_CINDER_INSTALL=n
+CONFIG_NOVA_INSTALL=y
+CONFIG_NEUTRON_INSTALL=y
+CONFIG_HORIZON_INSTALL=y
+CONFIG_SWIFT_INSTALL=n
+CONFIG_CEILOMETER_INSTALL=n
+CONFIG_HEAT_INSTALL=n
+CONFIG_NAGIOS_INSTALL=y
+...
 CONFIG_USE_EPEL=y         #CentOS Cloud SIG版やFedoraのPackstackではnに設定
 ````
 
@@ -130,7 +141,7 @@ DNS2=8.8.4.4
 ````
 
 ###◆SELinuxの設定
-SELinuxが有効の状態でも動作するように調整します。All-in-Oneでインストールしたので、次の設定を追加します。
+SELinuxが有効の状態でも動作するように調整します。各サーバーに必要なSELinuxの許可設定を実行します。
 
 ````
 # setsebool -P httpd_use_openstack on
