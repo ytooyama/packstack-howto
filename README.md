@@ -10,7 +10,11 @@ Packstackを使ったOpenStack環境構築簡易手順書のようなもので�
 - [RHEL7 / Scientific Linux 7を使う場合](Packstack1b-QuickStart-arrangements-others.md)
 - [Fedora 21,22,23を使う場合](Packstack1b-QuickStart-arrangements-others.md)
 
-(2) 終わったら[インストールガイド](Packstack2-QuickStart-installations.md)をみて、デプロイします。
+(2) 終わったらインストールガイドを見てデプロイします。
+
+- [All-in-One構成でセットアップ](Packstack2-QuickStart-installations.md)
+- [マルチノード構成でセットアップ](Packstack3-QuickStart-installations-multi.md)
+
 
 ##もっと細かい手順書は？
 こちらをどうそ。
@@ -19,7 +23,7 @@ Packstackを使ったOpenStack環境構築簡易手順書のようなもので�
 - [Juno](https://github.com/ytooyama/rdo-juno)
 - [Kilo](https://github.com/ytooyama/rdo-kilo)
 
-Liberty版はまだ作っていませんが、[Kilo](https://github.com/ytooyama/rdo-kilo)版が参考になります。
+Kilo以降のバージョンは作る予定はありませんが、大幅に変更があった場合は作成すると思います。とりあえずLiberty環境の構築は、[Kilo](https://github.com/ytooyama/rdo-kilo)版が参考になると思います。
 
 ##RDO,Packstackってなに？
 [公式サイト](https://www.rdoproject.org/Main_Page)をご覧ください。
