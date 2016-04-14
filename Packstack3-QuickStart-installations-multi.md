@@ -1,6 +1,11 @@
 #Packstack Howto インストールガイド(Multi Node)
 
-最終更新日: 2016/01/20
+最終更新日: 2016/04/14
+
+````
+【注意】
+このドキュメントはLibrtyバージョンで確認しています。Mitakaでの確認はまだ行っていません。
+````
 
 
 ##この文書について
@@ -24,8 +29,7 @@
 
 PackstackによるOpenStackのデプロイを行う前に、下記を参考に準備しておいてください。
 
-- [CentOS 7の場合](Packstack1a-QuickStart-arrangements-centos7.md)
-- [Scientific Linux 7/Fedoraの場合](Packstack1b-QuickStart-arrangements-others.md)
+- [Packstack 準備編](Packstack1-QuickStart-arrangements.md)
 
 
 ###DryRunモードでPackstackコマンドの実施
@@ -199,8 +203,6 @@ nova-cert        node1     internal         enabled    :-)   2015-10-26 04:30:59
 | DHCP agent         | node1   | :-)   |
 +--------------------+---------+-------+
 ````
-
-KiloでUnable to establish connection to http://xxx.xxx.xxx.xxx:5000/v2.0/tokens といったエラーが出た場合はKeystoneが正常に動いていないので、httpdを再起動してみてください。その後、keystone token-getなどのコマンドで応答が返ってくれば問題ないです。
 
 
 ##この後の設定について

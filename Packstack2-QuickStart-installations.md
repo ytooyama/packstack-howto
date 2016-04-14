@@ -1,13 +1,13 @@
-#Packstack Howto インストールガイド
+#PackstackによるOpenStackインストールガイド
 
-最終更新日: 2016/01/20
+最終更新日: 2016/04/14
 
 
 ##この文書について
 この文書はとりあえず1台に全部入りのOpenStack環境をさくっと構築する場合の手順です。細かいことは省いてしまったので、もう少し細かい手順については次のページの情報などを参考にしてください。
 
-- [Juno](https://github.com/ytooyama/rdo-juno)
 - [Kilo](https://github.com/ytooyama/rdo-kilo)
+- Mitaka (作業中)
 - [その他](https://github.com/ytooyama?tab=repositories)
 
 
@@ -24,15 +24,12 @@
 
 PackstackによるOpenStackのデプロイを行う前に、下記を参考に準備しておいてください。
 
-- [CentOS 7の場合](Packstack1a-QuickStart-arrangements-centos7.md)
-- [Scientific Linux 7/Fedoraの場合](Packstack1b-QuickStart-arrangements-others.md)
+- [Packstack 準備編](Packstack1-QuickStart-arrangements.md)
 
 
 ###PackstackによるOpenStackのデプロイ
 
 下記を実行することで1台のマシンにOpenStackコンポーネントをインストールできます。
-
-CentOS 7/Fedora(注1)の場合
 
 ````
 # setenforce 0
@@ -43,16 +40,6 @@ CentOS 7/Fedora(注1)の場合
 ````
 
 注1...RDOコミュニティによるFedoraのサポートはkiloバージョンまでです。
-
-その他のEL7の場合
-
-````
-# yum install epel-release && setenforce 0
-# packstack --allinone --default-password=password \
- --provision-demo=n --use-epel=y
-...
- **** Installation completed successfully ******
-````
 
 --provision-demo=yとすると、デモ用のネットワークやユーザーなどが作られ、OpenStackの一通りの操作をすぐ実行できます。ただしデモ用のネットワークはクローズドなので、外部からアクセス不可（後でそれを可能にするには、Neutronネットワークの作り直しが必要）なので注意。
 
@@ -153,30 +140,32 @@ Packstackインストーラーによるインストール時にエラー出力�
 ````
 # source /root/keystonerc_admin
 (adminユーザー認証情報を読み込む)
-# nova-manage service list
-Binary           Host      Zone             Status     State Updated_At
-nova-consoleauth node1     internal         enabled    :-)   2015-10-26 04:30:59
-nova-scheduler   node1     internal         enabled    :-)   2015-10-26 04:30:57
-nova-conductor   node1     internal         enabled    :-)   2015-10-26 04:30:59
-nova-compute     node1     nova             enabled    :-)   2015-10-26 04:31:01
-nova-cert        node1     internal         enabled    :-)   2015-10-26 04:30:59
+(keystone_admin)]# nova service-list
++----+------------------+--------------+----------+---------+-------+--
+| Id | Binary           | Host         | Zone     | Status  | State | 
++----+------------------+--------------+----------+---------+-------+--
+| 3  | nova-cert        | cent7-node1  | internal | enabled | up    | 
+| 4  | nova-consoleauth | cent7-node1  | internal | enabled | up    | 
+| 5  | nova-scheduler   | cent7-node1  | internal | enabled | up    | 
+| 6  | nova-conductor   | cent7-node1  | internal | enabled | up    | 
+| 7  | nova-compute     | cent7-node1  | nova     | enabled | up    | 
++----+------------------+--------------+----------+---------+-------+--
 ````
 
 最後に、NeutronのエージェントがOKであることを確認します。
 
 ````
-# neutron agent-list -c agent_type -c host -c alive
-+--------------------+---------+-------+
-| agent_type         | host    | alive |
-+--------------------+---------+-------+
-| Metadata agent     | node1   | :-)   |
-| L3 agent           | node1   | :-)   |
-| Open vSwitch agent | node1   | :-)   |
-| DHCP agent         | node1   | :-)   |
-+--------------------+---------+-------+
+(keystone_admin)]# neutron agent-list -c agent_type -c host -c alive
++--------------------+--------------+-------+
+| agent_type         | host         | alive |
++--------------------+--------------+-------+
+| Metering agent     | cent7-node1  | :-)   |
+| Open vSwitch agent | cent7-node1  | :-)   |
+| L3 agent           | cent7-node1  | :-)   |
+| DHCP agent         | cent7-node1  | :-)   |
+| Metadata agent     | cent7-node1  | :-)   |
++--------------------+--------------+-------+
 ````
-
-KiloでUnable to establish connection to http://xxx.xxx.xxx.xxx:5000/v2.0/tokens といったエラーが出た場合はKeystoneが正常に動いていないので、httpdを再起動してみてください。その後、keystone token-getなどのコマンドで応答が返ってくれば問題ないです。
 
 
 ##この後の設定について

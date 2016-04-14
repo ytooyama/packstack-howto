@@ -2,15 +2,13 @@
 
 ##これはなに
 Packstackを使ったOpenStack環境構築簡易手順書のようなものです。
+手順に従うことで、OpenStack Kilo,Librty,Mitakaを構築できます。
 
 ##どれを見ればいいの？
-(1) まずは次をみて、「前準備」をしてください。
 
-- [CentOS 7を使う場合](Packstack1a-QuickStart-arrangements-centos7.md)
-- [RHEL7 / Scientific Linux 7を使う場合](Packstack1b-QuickStart-arrangements-others.md)
-- [Fedora 21,22,23を使う場合](Packstack1b-QuickStart-arrangements-others.md)
+(1) まずは「[前準備](Packstack1-QuickStart-arrangements.md)」をしてください。
 
-(2) 終わったら[インストールガイド](Packstack2-QuickStart-installations.md)をみて、デプロイします。
+(2) 終わったら[インストールガイド](Packstack2-QuickStart-installations.md)をみて、OpenStackをデプロイします。
 
 ##もっと細かい手順書は？
 こちらをどうそ。
@@ -19,10 +17,16 @@ Packstackを使ったOpenStack環境構築簡易手順書のようなもので�
 - [Juno](https://github.com/ytooyama/rdo-juno)
 - [Kilo](https://github.com/ytooyama/rdo-kilo)
 
-Liberty版はまだ作っていませんが、[Kilo](https://github.com/ytooyama/rdo-kilo)版が参考になります。
+Mitaka版はまだ作っていませんが、[Kilo](https://github.com/ytooyama/rdo-kilo)版が参考になると思います。
 
 ##RDO,Packstackってなに？
 [公式サイト](https://www.rdoproject.org/Main_Page)をご覧ください。
 
+その他
+
+- [RDO quickstart](https://www.rdoproject.org/install/quickstart/)
+- [TripleO quickstart](https://www.rdoproject.org/tripleo/) 
+
 ##Packstackを使わないでインストールしたい
+
 [OpenStack公式マニュアル](http://docs.openstack.org)をご覧ください。

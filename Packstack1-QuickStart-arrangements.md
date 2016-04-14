@@ -1,14 +1,13 @@
-#Packstack Howto 準備編
+#Packstack 準備編
 
-最終更新日: 2015/12/03
+最終更新日: 2016/04/14
 
 
 ##この文書について
 この文書はとりあえず1台に全部入りのOpenStack環境をさくっと構築する場合の手順です。細かいことは省いてしまったので、もう少し細かい手順については次のページの情報などを参考にしてください。
 
-- [Juno](https://github.com/ytooyama/rdo-juno)
 - [Kilo](https://github.com/ytooyama/rdo-kilo)
-- Liberty
+- Mitaka (作業中)
 - [その他](https://github.com/ytooyama?tab=repositories)
 
 
@@ -21,7 +20,16 @@
 ##Step 1: インストールまでの流れ
 
 ###OSのインストールとアップデート
-- RHEL 7.xやScientidfic Linux 7.x、Fedora 21-23を最小インストールして、アップデートを行っておきます。
+- RHEL 7.xやScientidfic Linux 7.x、CentOS 7.xを最小インストールして、アップデートを行っておきます。
+
+###言語設定を行う
+標準出力およびエラー出力を英語で出力するために次の設定を行います。
+
+````
+# vi /etc/environment
+LANG=en_US.utf-8
+LC_ALL=en_US.utf-8
+````
 
 ###ネットワーク設定の変更
 - 固定IPアドレスを設定します。
@@ -44,16 +52,41 @@ DEVICE="eth1" #追加
 ###リポジトリーパッケージのインストール
 
 Kilo以降、CentOS 7ではCloudSIGプロジェクトがCentOSユーザー向けにパッケージを用意しています。RDOプロジェクトが用意するパッケージも利用できます。
+
 RHEL7およびCentOS 7以外のRHEL7クローンでは、RDOプロジェクトが用意するリポジトリーパッケージをインストールすることでOpenStackのインストールが可能になります。
 
-Kilo以降では[CentOS 7を使う場合はこちらの方法](Packstack1a-QuickStart-arrangements-centos7.md)でも構築可能です。ちなみにRDO版のパッケージの方が少々新しいです。
+両者の違いとしては、RDO版のパッケージの方がCloudSIG版よりも少々新しい点です。
 
 ---
- 
-- Juno をインストールする場合の参照リポジトリー
+
+- Mitaka をインストールする場合
+
+以下のコマンドでRDOリポジトリーのパッケージを利用できます(Fedoraはサポートされません)。
 
 ````
-# yum install -y http://rdo.fedorapeople.org/openstack-juno/rdo-release-juno.rpm
+# yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-mitaka/rdo-release-mitaka-2.noarch.rpm
+````
+
+CentOS 7ではCloudSIGプロジェクトがメンテナンスしているリポジトリーを利用できます。
+
+````
+# yum install -y centos-release-openstack-mitaka
+````
+
+---
+
+- Liberty をインストールする場合
+
+以下のコマンドでRDOリポジトリーのパッケージを利用できます(Fedoraはサポートされません)。
+
+````
+# yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-liberty/rdo-release-liberty-2.noarch.rpm
+````
+
+CentOS 7ではCloudSIGプロジェクトがメンテナンスしているリポジトリーを利用できます。
+
+````
+# yum install -y centos-release-openstack-liberty
 ````
 
 ---
@@ -66,16 +99,12 @@ RHEL7,Scientific Linux7,Fedora 21及び22ではRDOリポジトリーパッケー
 # yum install -y http://rdo.fedorapeople.org/openstack-kilo/rdo-release-kilo.rpm
 ````
 
-Fedora 23では標準リポジトリーパッケージでKiloを構築できるので、上記リポジトリー追加は必要ありません。
+Fedora 23では標準リポジトリーパッケージでKiloを構築できるので、上記リポジトリーの追加は必要ありません。
 
----
-
-- Liberty をインストールする場合
-
-RHEL7,Scientific Linux7ではRDOリポジトリーパッケージを利用できます(Fedoraはサポートされません)。
+CentOS 7ではCloudSIGプロジェクトがメンテナンスしているリポジトリーを利用できます。
 
 ````
-# yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-liberty/rdo-release-liberty-2.noarch.rpm
+# yum install -y centos-release-openstack-kilo
 ````
 
 ---
