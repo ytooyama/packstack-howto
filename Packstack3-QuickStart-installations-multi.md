@@ -9,7 +9,7 @@
 
 
 ##この文書について
-この文書はとりあえず1台に全部入りのOpenStack環境をさくっと構築する場合の手順です。細かいことは省いてしまったので、もう少し細かい手順については次のページの情報などを参考にしてください。
+この文書は複数台構成のOpenStack環境をPackstackでさくっと構築する場合の手順をまとめたものです。細かいことは省いてしまったので、もう少し細かい手順については次のページの情報などを参考にしてください。
 
 - [Juno](https://github.com/ytooyama/rdo-juno)
 - [Kilo](https://github.com/ytooyama/rdo-kilo)
@@ -137,7 +137,7 @@ DEVICETYPE=ovs
 TYPE=OVSBridge
 OVSBOOTPROTO=none
 OVSDHCPINTERFACES=eth1 #インターネットに接続されている方のデバイス
-IPADDR=192.168.1.10
+IPADDR=192.168.1.11
 NETMASK=255.255.255.0  # netmask
 GATEWAY=192.168.1.1    # gateway
 DNS1=8.8.8.8           # nameserver
