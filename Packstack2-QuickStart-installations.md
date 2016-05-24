@@ -1,6 +1,6 @@
 #PackstackによるOpenStackインストールガイド
 
-最終更新日: 2016/04/14
+最終更新日: 2016/05/24
 
 
 ##この文書について
@@ -30,6 +30,7 @@ PackstackによるOpenStackのデプロイを行う前に、下記を参考に�
 ###PackstackによるOpenStackのデプロイ
 
 下記を実行することで1台のマシンにOpenStackコンポーネントをインストールできます。
+[マルチノードで構築したい場合はこちらを参照](Packstack3-QuickStart-installations-multi.md)してください。
 
 ````
 # setenforce 0
