@@ -70,6 +70,11 @@ inet 10.0.3.15/24
 # systemctl disable NetworkManager && systemctl enable network
 # systemctl stop NetworkManager;systemctl start network
 
+■OpenStackのステータスを確認
+# source keystonerc_admin ←adminのリソースファイルを読み込み
+(keystone_admin)# nova service-list
+(keystone_admin)# neutron agent-list
+
 ■demoユーザー向けキーペア(mykey)の登録
 # source keystonerc_demo
 (keystone_demo)]# openstack keypair create mykey --public-key /root/.ssh/id_rsa.pub
