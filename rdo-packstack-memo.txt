@@ -1,0 +1,104 @@
+OpenStack環境 構築メモ
+++++++++++++++++++++
+VirtualBoxにCentOS 7を入れて、RDO PackStackを使って構築する例です。
+最新安定版バージョンのOpenStackをインストールします。
+2016年8月9日時点の最新安定版はMitaka release。
+
+元ネタは公式のQuick Startを基にしています。
+https://www.rdoproject.org/install/quickstart/
+
+■ネットワーク設定
+仮想マシンのネットワーク設定とゲストOSのネットワーク設定を行います。
+
+◆Host-only Networkの作成
+・vboxnet1
+192.168.0.1/24
+
+◆仮想マシンの作成
+・CPU 1-2
+・RAM 3-6GB
+
+◆仮想マシンのネットワーク接続
+Adapter1(Host-only) → 固定IP
+Adapter2(NAT) → DHCP
+
+■CentOSのインストールと設定
+・最小インストール
+・一つ目のNICにIPを設定→192.168.0.101/24
+
+■言語設定を行う
+標準出力およびエラー出力を英語で出力するために次の設定を行います。
+
+# vi /etc/environment
+LANG=en_US.utf-8
+LC_ALL=en_US.utf-8
+
+■リポジトリパッケージとpackstackのインストール
+# yum install -y https://rdoproject.org/repos/rdo-release.rpm
+# yum install -y openstack-packstack
+
+■Packstackコマンドでpackstack-answersファイルを作成
+# setenforce 0
+# packstack --dry-run --allinone --default-password=password \
+--os-manila-install=n --os-aodh-install=n \
+--os-gnocchi-install=n --os-sahara-install=n \
+--os-heat-install=n --os-trove-install=n \
+--os-ironic-install=n --nagios-install=n
+
+・--allinoneで1台のマシンにOpenStackを構築する(マルチノードを作る時は後でIPアドレスを設定)
+・--dry-runオプションで実行をエミュレートする。アンサーファイルが作成される
+・osで始まり、installで終わるオプションがインストールオプション
+(例) --os-manila-install
+・アンサーファイル(packstack-answers-*.txt)を構築したい構成に合わせて変更
+
+■今のIPアドレスの確認
+# ip -4 a|grep -v 127.0.0.1|grep inet|awk '{print $1,$2;}'
+(IPv4アドレスだけ出力してloは除いて...)
+inet 192.168.0.101/24
+inet 10.0.3.15/24
+
+■IPアドレスの書き換え
+ゲートウェイが設定されている方で待ち受けしてしまうので変更。
+# sed -i -e 's/10.0.3.15/192.168.0.101/g' packstack-answers-*.txt
+
+■デプロイ
+# setenforce 0
+# packstack --answer-file=packstack-answers-*.txt  ←ファイルパスはファイル名を指定
+
+■セキュリティ関連の設定変更
+# systemctl disable firewalld && systemctl stop firewalld
+# systemctl disable NetworkManager && systemctl enable network
+# systemctl stop NetworkManager;systemctl start network
+
+■demoユーザー向けキーペア(mykey)の登録
+# source keystonerc_demo
+(keystone_demo)]# openstack keypair create mykey --public-key /root/.ssh/id_rsa.pub
+
+■OpenStack Dashboard(Horizon)にブラウザーでアクセス
+http://192.168.0.101/dashboard/
+ユーザー: demo
+パスワード: password
+
+◆セキュリティグループの設定
+・SSH
+・ICMP (Pingなどを許可)
+
+◆インスタンスを起動
+◆Floating IPをインスタンスに割り当て
+◆OpenStackを実行するノードからSSH接続
+以上
+
+■この後検討すること
+
+◆ハイパーバイザーなどが実行できる環境
+CirrOSはQEMUで動作する。他のOSを動かすにはハイパーバイザーなどが動作する環境で実行する必要がる(VirtualBoxはNested VM非対応なので対応する環境で実行)。
+
+◆マルチノード
+1台に全部のせは現実的にはありえないので複数台構成で実行する。
+
+◆ネットワーク
+外部ネットワークIPアドレスは一時的なアドレスを設定しているだけ。再起動すると消える。
+ネットワークを維持したい場合やOpenStackノード以外の外からアクセスするにはネットワークをきちんと設定する必要がある。
+
+(例)
+https://github.com/ytooyama/packstack-howto/blob/master/Packstack3-QuickStart-installations-multi.md
