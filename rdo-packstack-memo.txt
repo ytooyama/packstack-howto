@@ -86,12 +86,14 @@ http://192.168.0.101/dashboard/
 ◆インスタンスを起動
 ◆Floating IPをインスタンスに割り当て
 ◆OpenStackを実行するノードからSSH接続
+
 以上
 
 ■この後検討すること
 
 ◆ハイパーバイザーなどが実行できる環境
-CirrOSはQEMUで動作する。他のOSを動かすにはハイパーバイザーなどが動作する環境で実行する必要がる(VirtualBoxはNested VM非対応なので対応する環境で実行)。
+CirrOSはQEMUで動作する。他のOSを動かすにはハイパーバイザーなどが動作する環境で
+実行する必要がある(VirtualBoxはNested VM非対応なので対応する環境で実行)。
 
 ◆マルチノード
 1台に全部のせは現実的にはありえないので複数台構成で実行する。
@@ -100,5 +102,8 @@ CirrOSはQEMUで動作する。他のOSを動かすにはハイパーバイザ�
 外部ネットワークIPアドレスは一時的なアドレスを設定しているだけ。再起動すると消える。
 ネットワークを維持したい場合やOpenStackノード以外の外からアクセスするにはネットワークをきちんと設定する必要がある。
 
-(例)
+(例1) シングル構成
+https://github.com/ytooyama/packstack-howto/blob/master/Packstack2-QuickStart-installations.md
+
+(例2)マルチノード構成
 https://github.com/ytooyama/packstack-howto/blob/master/Packstack3-QuickStart-installations-multi.md
