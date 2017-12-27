@@ -1,10 +1,11 @@
 # OpenStack Packstack Howto
 
-##これはなに
+## これはなに
+
 Packstackを使ったOpenStack環境構築簡易手順書のようなものです。
 手順に従うことで、OpenStack Kilo,Librty,Mitakaを構築できます。
 
-##どれを見ればいいの？
+## どれを見ればいいの？
 
 (1) まずは「[前準備](Packstack1-QuickStart-arrangements.md)」をしてください。
 
@@ -13,7 +14,8 @@ Packstackを使ったOpenStack環境構築簡易手順書のようなもので�
 - [All-in-One構成でセットアップ](Packstack2-QuickStart-installations.md)
 - [マルチノード構成でセットアップ](Packstack3-QuickStart-installations-multi.md)
 
-##もっと細かい手順書は？
+## もっと細かい手順書は？
+
 こちらをどうそ。
 
 - [Icehouse](https://github.com/ytooyama/rdo-icehouse)
@@ -22,7 +24,8 @@ Packstackを使ったOpenStack環境構築簡易手順書のようなもので�
 
 Mitaka版はまだ作っていませんが、[Kilo](https://github.com/ytooyama/rdo-kilo)版が参考になると思います。
 
-##RDO,Packstackってなに？
+## RDO,Packstackってなに？
+
 [公式サイト](https://www.rdoproject.org/Main_Page)をご覧ください。
 
 その他
@@ -30,6 +33,6 @@ Mitaka版はまだ作っていませんが、[Kilo](https://github.com/ytooyama/
 - [RDO quickstart](https://www.rdoproject.org/install/quickstart/)
 - [TripleO quickstart](https://www.rdoproject.org/tripleo/) 
 
-##Packstackを使わないでインストールしたい
+## Packstackを使わないでインストールしたい
 
 [OpenStack公式マニュアル](http://docs.openstack.org)をご覧ください。

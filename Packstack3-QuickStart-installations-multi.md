@@ -1,4 +1,4 @@
-#Packstack Howto インストールガイド(Multi Node)
+# Packstack Howto インストールガイド(Multi Node)
 
 最終更新日: 2016/04/14
 
@@ -8,7 +8,8 @@
 ````
 
 
-##この文書について
+## この文書について
+
 この文書は複数台構成のOpenStack環境をPackstackでさくっと構築する場合の手順をまとめたものです。細かいことは省いてしまったので、もう少し細かい手順については次のページの情報などを参考にしてください。
 
 - [Juno](https://github.com/ytooyama/rdo-juno)
@@ -16,23 +17,23 @@
 - [その他](https://github.com/ytooyama?tab=repositories)
 
 
-##前提
+## 前提
 
 - 2Core,4GBメモリー,30GBディスク以上の環境を用意します。
 - OSをインストールし`yum update`して最新の状態にします。
 - 固定IPアドレスを設定しておきます。
 - 本例はNIC eth1がインターネットゲートウェイと接続されているNICであると想定します（違う場合は読み替えてください）。
 
-##Step 1: インストールまでの流れ
+## Step 1: インストールまでの流れ
 
-###前準備
+### 前準備
 
 PackstackによるOpenStackのデプロイを行う前に、下記を参考に準備しておいてください。
 
 - [Packstack 準備編](Packstack1-QuickStart-arrangements.md)
 
 
-###DryRunモードでPackstackコマンドの実施
+### DryRunモードでPackstackコマンドの実施
 
 コントローラーノードで以下のようにコマンドを実行してマニフェストファイルを作成します。
 
@@ -68,7 +69,7 @@ CONFIG_USE_EPEL=y         #CentOS Cloud SIG版やFedoraのPackstackではnに設
 ````
 
 
-###PackstackによるOpenStackのデプロイ
+### PackstackによるOpenStackのデプロイ
 
 下記を実行することでOpenStackコンポーネントをインストールできます。
 
@@ -96,7 +97,7 @@ Packstackの構築完了後に切り替えを行います。
 ````
 
 
-##Step 2: ブラウザーでアクセス
+## Step 2: ブラウザーでアクセス
 
 インストール後に表示されるDashboardのURLにブラウザでアクセスしてみます。ユーザー=admin、パスワード=passwordでログインできます。
 
@@ -105,13 +106,14 @@ Packstackの構築完了後に切り替えを行います。
 ![Dashboard Login](./images/login.png)
 
 
-##Step 3: ネットワーク設定の変更
+## Step 3: ネットワーク設定の変更
 
 次に外部と通信できるようにするための設定を行います。外部ネットワークとの接続を提供するノード(ネットワークノード、1台構成時はそのマシン)に仮想ネットワークブリッジインターフェイスであるbr-exを設定します。
 
 本例ではホストに二つのNICがあり、eth1がインターネット側につながっている場合を例とします。eth1にゲートウェイが設定されていることを確認します。
 
-###◆public用として使うNICの設定ファイルを修正
+### ◆public用として使うNICの設定ファイルを修正
+
 Packstackコマンド実行後、eth1をbr-exにつなぐように設定をします(※BOOTPROTOは設定しない)
 
 eth1からIPアドレス、サブネットマスク、ゲートウェイの設定を削除して次の項目だけを記述し、br-exの方に設定を書き込みます｡
@@ -126,7 +128,8 @@ DEVICETYPE=ovs
 OVS_BRIDGE=br-ex
 ````
 
-###◆ブリッジインターフェイスの作成
+### ◆ブリッジインターフェイスの作成
+
 br-exにeth1のIPアドレスを設定します。
 
 ````
@@ -144,7 +147,8 @@ DNS1=8.8.8.8           # nameserver
 DNS2=8.8.4.4
 ````
 
-###◆SELinuxの設定
+### ◆SELinuxの設定
+
 SELinuxが有効の状態でも動作するように調整します。各サーバーに必要なSELinuxの許可設定を実行します。
 
 ````
@@ -154,14 +158,16 @@ SELinuxが有効の状態でも動作するように調整します。各サー�
 # setsebool -P swift_can_network on
 ````
 
-###◆再起動
+### ◆再起動
+
 ここまでできたらいったんホストを再起動します。
 
 ````
 # reboot
 ````
 
-###◆動作確認
+### ◆動作確認
+
 Packstackインストーラーによるインストール時にエラー出力がされなければ問題はありませんが、念のためbr-exとNova、Neutronエージェントが導入されてかつ正しく認識されていることを確認しましょう。
 
 まずは再起動後にbr-exが正しく動作し、外のネットワークとつながっていることを確認します。
@@ -205,7 +211,7 @@ nova-cert        node1     internal         enabled    :-)   2015-10-26 04:30:59
 ````
 
 
-##この後の設定について
+## この後の設定について
 
 次にNeutron Networkを作成します。「Neutron ネットワークの設定」の手順に従って、Neutronネットワークを作成してください。
 
