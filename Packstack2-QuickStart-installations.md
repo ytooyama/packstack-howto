@@ -1,14 +1,14 @@
 # PackstackによるOpenStackインストールガイド
 
-最終更新日: 2016/05/24
+最終更新日: 2017/01/23
 
 
 ## この文書について
 
 この文書はとりあえず1台に全部入りのOpenStack環境をさくっと構築する場合の手順です。細かいことは省いてしまったので、もう少し細かい手順については次のページの情報などを参考にしてください。
 
+- [Juno](https://github.com/ytooyama/rdo-juno)
 - [Kilo](https://github.com/ytooyama/rdo-kilo)
-- Mitaka (作業中)
 - [その他](https://github.com/ytooyama?tab=repositories)
 
 
@@ -143,20 +143,21 @@ Packstackインストーラーによるインストール時にエラー出力�
 パケットロスがないことを確認します。
 
 つぎに、OpenStack NovaコンポーネントのステートがOKであることを確認します。
+`nova service-list`もしくは`openstack compute service list`を実行してください。
 
 ````
 # source /root/keystonerc_admin
 (adminユーザー認証情報を読み込む)
-(keystone_admin)]# nova service-list
-+----+------------------+--------------+----------+---------+-------+--
-| Id | Binary           | Host         | Zone     | Status  | State | 
-+----+------------------+--------------+----------+---------+-------+--
-| 3  | nova-cert        | cent7-node1  | internal | enabled | up    | 
-| 4  | nova-consoleauth | cent7-node1  | internal | enabled | up    | 
-| 5  | nova-scheduler   | cent7-node1  | internal | enabled | up    | 
-| 6  | nova-conductor   | cent7-node1  | internal | enabled | up    | 
-| 7  | nova-compute     | cent7-node1  | nova     | enabled | up    | 
-+----+------------------+--------------+----------+---------+-------+--
+(keystone_admin)]# openstack compute service list
++----+------------------+-------------+----------+---------+-------+-
+| ID | Binary           | Host        | Zone     | Status  | State | 
++----+------------------+-------------+----------+---------+-------+-
+|  3 | nova-cert        | cent7-node1 | internal | enabled | up    |
+|  4 | nova-conductor   | cent7-node1 | internal | enabled | up    |
+|  5 | nova-scheduler   | cent7-node1 | internal | enabled | up    |
+|  6 | nova-consoleauth | cent7-node1 | internal | enabled | up    |
+|  7 | nova-compute     | cent7-node1 | nova     | enabled | up    |
++----+------------------+-------------+----------+---------+-------+-
 ````
 
 最後に、NeutronのエージェントがOKであることを確認します。

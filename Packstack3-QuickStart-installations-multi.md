@@ -1,11 +1,6 @@
 # Packstack Howto インストールガイド(Multi Node)
 
-最終更新日: 2016/04/14
-
-````
-【注意】
-このドキュメントはLibrtyバージョンで確認しています。Mitakaでの確認はまだ行っていません。
-````
+最終更新日: 2017/01/23
 
 
 ## この文書について
@@ -183,17 +178,21 @@ Packstackインストーラーによるインストール時にエラー出力�
 パケットロスがないことを確認します。
 
 つぎに、OpenStack NovaコンポーネントのステートがOKであることを確認します。
+`nova service-list`もしくは`openstack compute service list`を実行してください。
 
 ````
 # source /root/keystonerc_admin
 (adminユーザー認証情報を読み込む)
-# nova-manage service list
-Binary           Host      Zone             Status     State Updated_At
-nova-consoleauth node1     internal         enabled    :-)   2015-10-26 04:30:59
-nova-scheduler   node1     internal         enabled    :-)   2015-10-26 04:30:57
-nova-conductor   node1     internal         enabled    :-)   2015-10-26 04:30:59
-nova-compute     node1     nova             enabled    :-)   2015-10-26 04:31:01
-nova-cert        node1     internal         enabled    :-)   2015-10-26 04:30:59
+(keystone_admin)]# openstack compute service list
++----+------------------+-------------+----------+---------+-------+-
+| ID | Binary           | Host        | Zone     | Status  | State | 
++----+------------------+-------------+----------+---------+-------+-
+|  3 | nova-cert        | cent7-node1 | internal | enabled | up    |
+|  4 | nova-conductor   | cent7-node1 | internal | enabled | up    |
+|  5 | nova-scheduler   | cent7-node1 | internal | enabled | up    |
+|  6 | nova-consoleauth | cent7-node1 | internal | enabled | up    |
+|  7 | nova-compute     | cent7-node2 | nova     | enabled | up    |
++----+------------------+-------------+----------+---------+-------+-
 ````
 
 最後に、NeutronのエージェントがOKであることを確認します。
