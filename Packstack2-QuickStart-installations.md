@@ -1,6 +1,6 @@
 # PackstackによるOpenStackインストールガイド
 
-最終更新日: 2017/01/23
+最終更新日: 2018/9/30
 
 
 ## この文書について
@@ -36,12 +36,12 @@ PackstackによるOpenStackのデプロイを行う前に、下記を参考に�
 ````
 # setenforce 0
 # packstack --allinone --default-password=password \
- --provision-demo=n --use-epel=n
+ --provision-demo=n
 ...
  **** Installation completed successfully ******
 ````
 
-注1...RDOコミュニティによるFedoraのサポートはkiloバージョンまでです。
+注1...RDOコミュニティによるOpenStackリリース版のFedoraサポートはkiloバージョンまでです。
 
 --provision-demo=yとすると、デモ用のネットワークやユーザーなどが作られ、OpenStackの一通りの操作をすぐ実行できます。ただしデモ用のネットワークはクローズドなので、外部からアクセス不可（後でそれを可能にするには、Neutronネットワークの作り直しが必要）なので注意。
 

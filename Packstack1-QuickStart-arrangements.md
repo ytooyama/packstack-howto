@@ -1,6 +1,6 @@
 # Packstack 準備編
 
-最終更新日: 2017/12/27
+最終更新日: 2018/9/30
 
 
 ## この文書について
@@ -60,6 +60,23 @@ RHEL7およびCentOS 7以外のRHEL7クローンでは、RDOプロジェクト�
 
 両者の違いとしては、RDO版のパッケージの方がCloudSIG版よりも少々新しい点です。
 
+
+---
+
+- Queens をインストールする場合
+
+以下のコマンドでRDOリポジトリーのパッケージを利用できます(Fedoraはサポートされません)。
+
+````
+# yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-queens/rdo-release-queens-1.noarch.rpm
+````
+
+CentOS 7ではCloudSIGプロジェクトがメンテナンスしているリポジトリーを利用できます。
+
+````
+# yum install -y centos-release-openstack-queens
+````
+
 ---
 
 - Pike をインストールする場合
@@ -74,23 +91,6 @@ CentOS 7ではCloudSIGプロジェクトがメンテナンスしているリポ�
 
 ````
 # yum install -y centos-release-openstack-pike
-````
-
-
----
-
-- Mitaka をインストールする場合
-
-以下のコマンドでRDOリポジトリーのパッケージを利用できます(Fedoraはサポートされません)。
-
-````
-# yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-mitaka/rdo-release-mitaka-2.noarch.rpm
-````
-
-CentOS 7ではCloudSIGプロジェクトがメンテナンスしているリポジトリーを利用できます。
-
-````
-# yum install -y centos-release-openstack-mitaka
 ````
 
 

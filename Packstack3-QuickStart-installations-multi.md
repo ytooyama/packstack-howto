@@ -1,6 +1,6 @@
 # Packstack Howto インストールガイド(Multi Node)
 
-最終更新日: 2017/01/23
+最終更新日: 2018/9/30
 
 
 ## この文書について
@@ -214,5 +214,4 @@ Packstackインストーラーによるインストール時にエラー出力�
 
 次にNeutron Networkを作成します。「Neutron ネットワークの設定」の手順に従って、Neutronネットワークを作成してください。
 
-- [Junoの場合](https://github.com/ytooyama/rdo-icehouse/blob/master/2-RDO-QuickStart-Networking.md)
 - [Kilo以降の場合](https://github.com/ytooyama/rdo-kilo/blob/master/2-RDO-QuickStart-Networking.md)
