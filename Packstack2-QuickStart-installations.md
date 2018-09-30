@@ -54,6 +54,7 @@ Packstackの構築完了後に切り替えを行います。
 ```` 
 # systemctl disable NetworkManager
 # systemctl enable network
+# systemctl disable firewalld
 ````
 
 

@@ -21,7 +21,7 @@
 
 ### OSのインストールとアップデート
 
-- RHEL 7.xやScientidfic Linux 7.x、CentOS 7.xを最小インストールして、アップデートを行っておきます。
+- RHEL 7.xやScientific Linux 7.x、CentOS 7.xを最小インストールして、アップデートを行っておきます。
 
 ### 言語設定を行う
 
