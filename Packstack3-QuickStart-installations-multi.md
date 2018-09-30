@@ -43,6 +43,8 @@ Additional information:
 
 コントローラー、コンピュート、ネットワークを担当させるホストに書き換えます。その他、必要に応じて設定を修正します。
 
+1台のマシンにインストールする場合は全てのIPアドレスを同じものを設定します。
+
 ````
 # vi packstack-*.txt
 ...
@@ -63,6 +65,8 @@ CONFIG_NAGIOS_INSTALL=y
 CONFIG_USE_EPEL=y         #CentOS Cloud SIG版やFedoraのPackstackではnに設定
 ````
 
+Packstackのバージョンによって無い項目があることがあります。
+
 
 ### PackstackによるOpenStackのデプロイ
 
@@ -81,16 +85,6 @@ root@192.168.1.11's password: ...
 注1...RDOコミュニティによるFedoraのサポートはkiloバージョンまでです。
 
 エラーが出ず、インストールが正常に完了すれば「Installation completed successfully」と表示されます。
-
-- NetworkManagerからnetworkサービスへの切り替え
-
-Packstackの構築完了後に切り替えを行います。
-
-```` 
-# systemctl disable NetworkManager
-# systemctl enable network
-# systemctl disable firewalld
-````
 
 
 ## Step 2: ブラウザーでアクセス

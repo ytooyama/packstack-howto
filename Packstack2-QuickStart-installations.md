@@ -19,6 +19,19 @@
 - 固定IPアドレスを設定しておきます。
 - 本例はNIC eth1がインターネットゲートウェイと接続されているNICであると想定します（違う場合は読み替えてください）。
 
+### メモリーの容量について
+
+次のコンポーネントのみインストールした場合、4GBのメモリーで動作することを確認しています。
+
+````
+CONFIG_MARIADB_INSTALL=y
+CONFIG_GLANCE_INSTALL=y
+CONFIG_NOVA_INSTALL=y
+CONFIG_NEUTRON_INSTALL=y
+CONFIG_HORIZON_INSTALL=y
+````
+
+
 ## Step 1: インストールまでの流れ
 
 ### 前準備
@@ -31,7 +44,7 @@ PackstackによるOpenStackのデプロイを行う前に、下記を参考に�
 ### PackstackによるOpenStackのデプロイ
 
 下記を実行することで1台のマシンにOpenStackコンポーネントをインストールできます。
-[マルチノードで構築したい場合はこちらを参照](Packstack3-QuickStart-installations-multi.md)してください。
+[カスタムデプロイおよびマルチノードで構築したい場合はこちらを参照](Packstack3-QuickStart-installations-multi.md)してください。
 
 ````
 # setenforce 0
@@ -43,19 +56,9 @@ PackstackによるOpenStackのデプロイを行う前に、下記を参考に�
 
 注1...RDOコミュニティによるOpenStackリリース版のFedoraサポートはkiloバージョンまでです。
 
---provision-demo=yとすると、デモ用のネットワークやユーザーなどが作られ、OpenStackの一通りの操作をすぐ実行できます。ただしデモ用のネットワークはクローズドなので、外部からアクセス不可（後でそれを可能にするには、Neutronネットワークの作り直しが必要）なので注意。
+--provision-demo=yとすると、デモ用のネットワークやユーザーなどが作られ、OpenStackの一通りの操作をすぐ実行できます。ただしデモ用のネットワークはクローズドなので、外部からアクセス不可（後でそれを可能にするには、Neutronネットワークの作り直しが必要）なので注意。--dry-runオプションをつけて実行すると、実際にデプロイは行われません。
 
 エラーが出ず、インストールが正常に完了すれば「Installation completed successfully」と表示されます。
-
-- NetworkManagerからnetworkサービスへの切り替え
-
-Packstackの構築完了後に切り替えを行います。
-
-```` 
-# systemctl disable NetworkManager
-# systemctl enable network
-# systemctl disable firewalld
-````
 
 
 ## Step 2: ブラウザーでアクセス

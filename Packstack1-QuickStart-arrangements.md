@@ -125,6 +125,17 @@ CentOS 7ではCloudSIGプロジェクトがメンテナンスしているリポ�
 # yum update -y && yum install -y openstack-packstack
 ````
 
+### NetworkManagerからnetworkサービスへの切り替え
+
+```` 
+# systemctl disable firewalld
+# systemctl stop firewalld
+# systemctl disable NetworkManager
+# systemctl stop NetworkManager
+# systemctl enable network
+# systemctl start network
+````
+
 ### PackstackによるOpenStackのデプロイ
 
 リポジトリーパッケージのインストール終わったら、[インストールガイド](Packstack2-QuickStart-installations.md)に進みます。
