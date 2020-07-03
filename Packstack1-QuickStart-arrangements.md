@@ -79,20 +79,27 @@ CentOS 7ではCloudSIGプロジェクトがメンテナンスしているリポ�
 
 ---
 
-- Pike をインストールする場合
+- Train をインストールする場合
 
 以下のコマンドでRDOリポジトリーのパッケージを利用できます(Fedoraはサポートされません)。
 
 ````
-# yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-pike/rdo-release-pike-1.noarch.rpm
+# yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-train/rdo-release-train-1.noarch.rpm
 ````
 
 CentOS 7ではCloudSIGプロジェクトがメンテナンスしているリポジトリーを利用できます。
 
 ````
-# yum install -y centos-release-openstack-pike
+# yum install -y centos-release-openstack-train
 ````
 
+
+---
+
+- Ussuri をインストールする場合
+
+このバージョンはRHEL8、CentOS 8以降をサポートしているようです。ディストリビューションのアップグレードが必要です。
+このガイドはEL7向けのため、CentOS 8向けを公開する予定です。
 
 ---
 
@@ -101,7 +108,7 @@ CentOS 7ではCloudSIGプロジェクトがメンテナンスしているリポ�
 
 * CentOS 7の場合
 
-以下で公開されているバージョンは`centos-release-openstack-*`のインストールで容易にインストール可能です。例えばOcataリリースは`yum install centos-release-openstack-ocata`で可能です。
+以下で公開されているバージョンは`yum search centos-release-openstack-`で検索して、必要なバージョンのメタパッケージのインストールで容易にインストール可能です。例えば　Trainリリースは`yum install centos-release-openstack-train`で可能です。
 
 <http://mirror.centos.org/centos-7/7/cloud/x86_64/>
 
